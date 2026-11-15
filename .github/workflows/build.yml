@@ -1,0 +1,42 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      - name: Build the APK
+        run: gradle assembleDebug --no-daemon --stacktrace
+
+      - name: Name the file
+        run: cp app/build/outputs/apk/debug/app-debug.apk saif-buvet.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: saif-buvet-apk
+          path: saif-buvet.apk
+
+      - name: Publish it on the Releases page
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest saif-buvet.apk --title "Saif Buvet" --notes "Download saif-buvet.apk on your Android phone and install it." --target "$GITHUB_SHA"
