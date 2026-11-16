@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    namespace 'com.saif.buvet'
+    namespace 'com.saif.minimarkeet'
     compileSdk 34
 
     defaultConfig {
-        applicationId 'com.saif.buvet'
-        minSdk 23
+        applicationId 'com.saif.minimarkeet'
+        minSdk 24
         targetSdk 34
         versionCode 1
         versionName '1.0'
@@ -34,4 +34,9 @@ android {
         abortOnError false
         checkReleaseBuilds false
     }
+}
+
+dependencies {
+    // camera barcode reader
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 }

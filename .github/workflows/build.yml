@@ -1,8 +1,8 @@
-name: Build APK
+name: Build Saif Mini Markeet APK
 
 on:
   push:
-    branches: [main]
+    branches: [saif-mini-markeet]
   workflow_dispatch:
 
 permissions:
@@ -27,16 +27,17 @@ jobs:
         run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Name the file
-        run: cp app/build/outputs/apk/debug/app-debug.apk saif-buvet.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk saif-mini-markeet.apk
 
       - uses: actions/upload-artifact@v4
         with:
-          name: saif-buvet-apk
-          path: saif-buvet.apk
+          name: saif-mini-markeet-apk
+          path: saif-mini-markeet.apk
 
+      # Its own tag, and not marked "latest", so the Saif Buvet release stays as it is.
       - name: Publish it on the Releases page
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release delete latest --yes --cleanup-tag || true
-          gh release create latest saif-buvet.apk --title "Saif Buvet" --notes "Download saif-buvet.apk on your Android phone and install it." --target "$GITHUB_SHA"
+          gh release delete mini-markeet --yes --cleanup-tag || true
+          gh release create mini-markeet saif-mini-markeet.apk --title "Saif Mini Markeet" --notes "Download saif-mini-markeet.apk on your Android phone and install it." --target "$GITHUB_SHA" --latest=false

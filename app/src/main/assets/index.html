@@ -2,567 +2,444 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Saif Buvet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Saif Mini Markeet</title>
 <style>
-/* layout idea: one column for the phone, a fixed bottom bar with three big tabs, verdict banner first on every screen */
+/* The look: the shop's squared notebook. Cool paper, biro-blue ink, red pen for a loss, a rubber stamp for the verdict. */
 :root{
-  --bg:#f1f4f6; --card:#ffffff; --ink:#12242e; --muted:#5b6d77; --line:#d6dee3;
-  --accent:#0d5c75; --on-accent:#ffffff; --accent-soft:#dcecf1;
-  --good:#12703f; --good-soft:#dff3e7; --bad:#b3261e; --bad-soft:#fbe4e1; --warn:#8a5a00; --warn-soft:#fbefd2;
-  --display:"Readex Pro","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
-  --body:"Readex Pro","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#0e171c; --card:#17242b; --ink:#e8f0f3; --muted:#9db0b9; --line:#2b3c45;
-    --accent:#58b9d6; --on-accent:#06222c; --accent-soft:#16343f;
-    --good:#5fd093; --good-soft:#123322; --bad:#ff8f86; --bad-soft:#3d1a17; --warn:#f0c15a; --warn-soft:#3a2c0c;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#0e171c; --card:#17242b; --ink:#e8f0f3; --muted:#9db0b9; --line:#2b3c45;
-  --accent:#58b9d6; --on-accent:#06222c; --accent-soft:#16343f;
-  --good:#5fd093; --good-soft:#123322; --bad:#ff8f86; --bad-soft:#3d1a17; --warn:#f0c15a; --warn-soft:#3a2c0c;
+  color-scheme:light;
+  --paper:#f6f9fd; --grid:#dbe6f3; --sheet:#ffffff; --rule:#cfdcec;
+  --ink:#14213d; --soft:#51607a; --biro:#1b3fa0; --biro-soft:#e3eafb;
+  --red:#c8102e; --red-soft:#fde7ea; --green:#0b7a4b; --green-soft:#e0f4ea;
+  --marker:#ffe45c; --amber:#7a5200; --amber-soft:#fff3c9;
+  --font:"Noto Sans Arabic","Noto Naskh Arabic",Roboto,"Segoe UI",Tahoma,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
-button,input{font:inherit;color:inherit}
+body{font-family:var(--font);font-size:17px;line-height:1.55;color:var(--ink);background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;display:inline-block}
-header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 16px 6px;max-width:560px;margin:0 auto}
-header h1{font-family:var(--display);font-size:22px;font-weight:700;margin:0}
-#status{font-size:13px;color:var(--muted)}
-main{max-width:560px;margin:0 auto;padding:8px 16px 190px;display:flex;flex-direction:column;gap:14px}
+:focus-visible{outline:3px solid var(--biro);outline-offset:2px}
+.n{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums}
+header{max-width:560px;margin:0 auto;padding:14px 16px 4px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+header h1{margin:0;font-size:24px;font-weight:800;color:var(--biro);line-height:1.2}
+header small{color:var(--soft);font-size:14px}
+main{max-width:560px;margin:0 auto;padding:8px 14px 120px}
 section[hidden]{display:none}
-section{display:flex;flex-direction:column;gap:14px}
-h2{font-family:var(--display);font-size:18px;margin:6px 0 0;text-wrap:balance}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
-.muted{color:var(--muted);font-size:14px}
-.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 16px;font-weight:600;min-height:48px}
-.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.btn.danger{color:var(--bad);border-color:var(--bad)}
-.btn.small{min-height:40px;padding:6px 12px;font-size:15px}
+h2{font-size:18px;font-weight:800;margin:22px 2px 8px}
+h2:first-child{margin-top:8px}
+.sheet{background:var(--sheet);border:1.5px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 var(--rule)}
+.pad{padding:14px}
+.line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--rule);min-height:52px;width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:start}
+.line:last-child{border-bottom:0}
+.line .t{flex:1;min-width:0}
+.line .t b{display:block;font-weight:700;overflow-wrap:anywhere}
+.line .t span{color:var(--soft);font-size:14px}
+.line .v{text-align:end;white-space:nowrap;font-weight:700;color:var(--biro)}
+.line .v small{display:block;font-weight:400;color:var(--soft);font-size:13px}
+.sum{font-weight:800}
+.sum .v{font-size:19px}
+.soft{color:var(--soft);font-size:14px}
+.pill{display:inline-block;padding:1px 10px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
+.pill.g{background:var(--green-soft);color:var(--green)}
+.pill.r{background:var(--red-soft);color:var(--red)}
+.pill.a{background:var(--amber-soft);color:var(--amber)}
+.pill.b{background:var(--biro-soft);color:var(--biro)}
+.red{color:var(--red)!important}.green{color:var(--green)!important}
+.btn{border:1.5px solid var(--ink);background:var(--sheet);border-radius:6px;padding:10px 16px;font-weight:700;min-height:50px}
+.btn.go{background:var(--biro);color:#fff;border-color:var(--biro)}
+.btn.warn{color:var(--red);border-color:var(--red)}
+.btn.sm{min-height:42px;padding:6px 12px;font-size:15px}
 .btn.wide{width:100%}
+.btn:active{transform:translate(1px,1px)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.row.between{justify-content:space-between}
-.pill{display:inline-block;border-radius:999px;padding:2px 12px;font-size:14px;font-weight:600}
-.pill.good{background:var(--good-soft);color:var(--good)}
-.pill.bad{background:var(--bad-soft);color:var(--bad)}
-.pill.warn{background:var(--warn-soft);color:var(--warn)}
-/* verdict */
-.verdict{border-radius:16px;padding:16px;border:2px solid var(--line);background:var(--card)}
-.verdict.good{background:var(--good-soft);border-color:var(--good);color:var(--good)}
-.verdict.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
-.verdict .big{font-family:var(--display);font-size:28px;font-weight:700;line-height:1.3}
-.verdict .amount{font-size:24px;font-weight:700}
-.verdict p{margin:4px 0 0;color:var(--ink);font-size:15px}
-/* tiles */
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
-.tile b{display:block;font-size:20px}
-.tile span.lbl{font-size:14px;color:var(--muted)}
-/* sell grid */
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.item{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:start;display:flex;flex-direction:column;gap:2px;min-height:92px}
-.item.on{border-color:var(--accent);background:var(--accent-soft)}
-.item .nm{font-weight:600;overflow-wrap:anywhere}
-.item .pr{font-size:15px;color:var(--muted)}
-.item .qty{position:absolute;top:8px;inset-inline-end:8px;background:var(--accent);color:var(--on-accent);border-radius:999px;min-width:28px;height:28px;display:grid;place-items:center;font-weight:700;font-size:15px}
-.minus{position:absolute;bottom:8px;inset-inline-end:8px;width:40px;height:40px;border-radius:999px;border:1px solid var(--accent);background:var(--card);color:var(--accent);font-size:22px;font-weight:700;line-height:1}
-.wrapitem{position:relative}
-.wrapitem .item{width:100%}
-/* product list */
-.kv{display:grid;grid-template-columns:1fr auto;gap:2px 12px;margin:8px 0}
-.kv dt{color:var(--muted);font-size:15px}.kv dd{margin:0;font-weight:600}
-.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.seg button{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 2px;font-size:14px;font-weight:600;min-height:44px}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.list{display:flex;flex-direction:column}
-.line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
-.line:first-child{border-top:0}
-.line .t{overflow-wrap:anywhere}
-/* bars */
-#cartbar{position:fixed;inset-inline:0;bottom:68px;padding:8px 16px;z-index:5}
-#cartbar .in{max-width:528px;margin:0 auto;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-#cartbar .btn{border:0}
-nav{position:fixed;inset-inline:0;bottom:0;background:var(--card);border-top:1px solid var(--line);z-index:6}
-nav .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
-nav button{border:0;background:none;padding:14px 4px;font-weight:600;font-size:16px;min-height:64px;color:var(--muted);border-top:4px solid transparent}
-nav button[aria-current="page"]{color:var(--accent);border-top-color:var(--accent)}
-/* sheet */
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10;display:flex;align-items:flex-end;justify-content:center}
-#overlay[hidden]{display:none}
-#sheet{background:var(--bg);width:100%;max-width:560px;max-height:92%;overflow-y:auto;border-radius:18px 18px 0 0;padding:18px 16px 24px;display:flex;flex-direction:column;gap:12px}
-#sheet h2{margin:0}
-.f{display:flex;flex-direction:column;gap:4px;font-weight:600}
-.f input{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:12px;font-size:20px;width:100%}
-.f input:focus{border-color:var(--accent);outline:0}
-.ing{display:grid;grid-template-columns:1.4fr 1fr;gap:8px}.ing input{min-width:0}
-.echo{font-weight:400;font-size:14px;color:var(--muted);min-height:22px}
-.calc{border-radius:14px;padding:14px;border:2px dashed var(--line);background:var(--card)}
-.calc.good{border-style:solid;border-color:var(--good);background:var(--good-soft)}
-.calc.bad{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
-.calc .head{font-family:var(--display);font-weight:700;font-size:20px}
-.calc.good .head{color:var(--good)}.calc.bad .head{color:var(--bad)}
-.calc ul{margin:6px 0 0;padding-inline-start:20px}
-#toast{position:fixed;inset-inline:16px;top:12px;z-index:20;display:flex;justify-content:center;pointer-events:none}
-#toast div{background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 16px;font-weight:600;max-width:520px}
-.err{color:var(--bad);font-weight:600;font-size:15px;min-height:22px}
-@media (prefers-reduced-motion:no-preference){.item:active,.btn:active{transform:scale(.98)}}
+.row>.grow{flex:1;min-width:0}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.chips button{border:1.5px solid var(--rule);background:var(--sheet);border-radius:999px;padding:6px 14px;white-space:nowrap;font-size:15px;min-height:40px}
+.chips button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+label{display:block;font-weight:700;font-size:15px;margin:12px 0 4px}
+label small{font-weight:400;color:var(--soft)}
+input[type=text],input[type=search],input[type=date],select{width:100%;border:1.5px solid var(--ink);border-radius:6px;background:#fff;padding:10px 12px;min-height:50px}
+input::placeholder{color:#8c98ab}
+.hint{font-size:14px;color:var(--biro);min-height:22px;margin-top:2px}
+.step{display:flex;align-items:center;gap:8px}
+.step button{width:50px;height:50px;border:1.5px solid var(--ink);border-radius:6px;background:var(--sheet);font-size:24px;font-weight:700;line-height:1}
+.step output{min-width:56px;text-align:center;font-size:24px;font-weight:800;color:var(--biro)}
+/* the verdict: one rubber stamp */
+.verdict{display:flex;align-items:center;gap:14px;padding:14px}
+.stamp{flex:none;border:3px double currentColor;border-radius:8px;padding:4px 14px;font-size:24px;font-weight:800;transform:rotate(-7deg);letter-spacing:0}
+.stamp.g{color:var(--green)}.stamp.r{color:var(--red)}.stamp.w{color:var(--soft)}
+.verdict p{margin:0}
+.verdict .big{font-size:24px;font-weight:800;color:var(--biro)}
+.mark{background:linear-gradient(transparent 55%,var(--marker) 55%)}
+.empty{padding:18px 14px;color:var(--soft)}
+nav{position:fixed;inset-inline:0;bottom:0;background:var(--sheet);border-top:1.5px solid var(--ink);padding-bottom:env(safe-area-inset-bottom)}
+nav div{max-width:560px;margin:0 auto;display:flex}
+nav button{flex:1;border:0;background:none;padding:10px 2px 12px;font-size:14px;font-weight:700;color:var(--soft);min-height:58px;border-top:4px solid transparent}
+nav button[aria-current=page]{color:var(--biro);border-top-color:var(--biro)}
+#shade{position:fixed;inset:0;background:rgba(20,33,61,.45);display:none;align-items:flex-end;justify-content:center;z-index:5}
+#shade.on{display:flex}
+#sheet{background:var(--paper);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-top:1.5px solid var(--ink);border-radius:14px 14px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom))}
+#sheet h2{margin-top:0}
+#toast{position:fixed;inset-inline:16px;bottom:82px;margin:0 auto;max-width:420px;background:var(--ink);color:#fff;border-radius:6px;padding:10px 14px;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9}
+#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<header><h1>Saif Buvet</h1><span id="status"></span></header>
+<header><h1>Saif Mini Markeet</h1><small id="date"></small></header>
 <main>
-  <section id="tab-sell"></section>
-  <section id="tab-products" hidden></section>
-  <section id="tab-debts" hidden></section>
+  <section id="tab-today"></section>
+  <section id="tab-goods" hidden></section>
+  <section id="tab-credit" hidden></section>
+  <section id="tab-spend" hidden></section>
   <section id="tab-report" hidden></section>
 </main>
-<div id="cartbar" hidden></div>
-<nav><div class="in">
-  <button type="button" data-tab="sell" aria-current="page">بيع</button>
-  <button type="button" data-tab="products">السلع</button>
-  <button type="button" data-tab="debts">الكريدي</button>
+<nav><div>
+  <button type="button" data-tab="today" aria-current="page">اليوم</button>
+  <button type="button" data-tab="goods">السلع</button>
+  <button type="button" data-tab="credit">الكريدي</button>
+  <button type="button" data-tab="spend">المصاريف</button>
   <button type="button" data-tab="report">الحساب</button>
 </div></nav>
-<div id="overlay" hidden><div id="sheet" role="dialog" aria-modal="true"></div></div>
-<div id="toast" aria-live="polite"></div>
+<div id="shade"><div id="sheet" role="dialog" aria-modal="true"></div></div>
+<div id="toast" role="status"></div>
 
 <script>
 "use strict";
-/* ---------- money: everything is kept in millimes (1 dinar = 1000) ---------- */
-function toLatin(s){return String(s).replace(/[٠-٩]/g,function(d){return "٠١٢٣٤٥٦٧٨٩".indexOf(d);}).replace(/[٫،,]/g,".");}
-function parseMoney(v){var s=toLatin(v==null?"":v).replace(/[^\d.]/g,"");if(!s||s===".")return NaN;var n=parseFloat(s);return isFinite(n)?Math.round(n*1000):NaN;}
-function parseCount(v){var s=toLatin(v==null?"":v).replace(/[^\d]/g,"");if(!s)return NaN;return parseInt(s,10);}
-function fmt(m){m=Math.round(m);var neg=m<0;m=Math.abs(m);var d=Math.floor(m/1000),r=("00"+(m%1000)).slice(-3);return (neg?"-":"")+String(d).replace(/\B(?=(\d{3})+(?!\d))/g," ")+"."+r;}
-function dt(m){return '<span class="num">'+fmt(m)+'</span> د.ت';}
-function inField(m){return isFinite(m)?(Math.round(m)/1000).toFixed(3):"";}
-function words(m){if(!isFinite(m))return "";m=Math.round(m);var d=Math.floor(m/1000),r=m%1000;if(d&&r)return "يعني "+d+" دينار و "+r+" مليم";if(d)return "يعني "+d+" دينار";return "يعني "+r+" مليم";}
-function calc(buy,pcs,sell){ /* returns null until the three numbers are there */
-  if(!isFinite(buy)||!isFinite(pcs)||!isFinite(sell)||pcs<=0)return null;
-  var cost=buy/pcs,per=sell-cost;return {cost:cost,per:per,all:per*pcs,income:sell*pcs};
+/* ---------- data ---------- */
+var KEY="saif-mini-markeet-v1";
+var SECS=["شكلاطة وسناكس","ماء","عصائر ومشروبات","أدوات مدرسية","حلوى وعلكة","بطاقات شحن","أخرى"];
+/* name, section, barcode, pieces per carton, carton price (millimes), sell price per piece (millimes), stock, note */
+var SEED=[
+["مومنتو",0,"6191544100302",24,24000,1500,54,""],
+["X-Plose",0,"6191544100760",24,26500,1500,73,""],
+["كيت كات Dark",0,"6294017137437",24,24000,1700,48,""],
+["شكلاطة Said",0,"6194005412037",24,null,1500,24,"سعر شراء الكرتونة ناقص، لوّج عليه في الفواتير القديمة"],
+["شكلاطة Krosss",0,"6194005492077",24,6800,500,119,""],
+["بسكويت جوفريتشو",0,"6194000521895",21,28500,2000,59,""],
+["كيك براونيز",0,"6194008554833",30,21600,1200,201,""],
+["كروستينا",0,"6194008541123",40,19000,700,76,""],
+["Happy Full",0,"6194005498284",12,13300,1500,17,""],
+["سناكس فلفول",0,"6194005498024",50,25000,500,80,"عدّ كرتونة كاملة: إذا فيها 50 أكهو، ما فيهاش ربح"],
+["شيبس بوبيتوس",0,"6191595600639",40,30000,1000,13,"سعر الكرتونة (30 د) تقريبي"],
+["كاكي",0,"6191415900031",50,7500,250,950,"الكمية (19 كرتونة) وسعر الشراء لازمهم تثبيت"],
+["محارم أنف",0,"6192011803672",10,2500,500,84,""],
+["ماء 1.5 لتر",1,"6191496000071",6,4500,1200,50,""],
+["ماء 1 لتر",1,"6194039503015",6,3800,1000,59,"الباركود متاع الباكو، موش الدبوزة"],
+["ماء 0.5 لتر Délice",1,"6191496000019",12,6000,800,70,""],
+["عصير أوفروي Ifri",2,"6130093068626",12,14000,2000,23,""],
+["عصير دايلي",2,"6132501549512",30,13000,1000,162,"سعر الكرتونة ساعات 12 د وساعات 13 د"],
+["عصير ديلي جوي",2,"6134427000122",48,12000,700,155,""],
+["غازية كانات برتقال",2,"6133489004284",6,5000,2000,19,""],
+["غازية بلاستيك ليمون",2,"6134807000087",12,12000,1500,16,""],
+["أقلام رصاص",3,"",1,null,700,47,"سلعة راكدة، وسعر الشراء منسي"],
+["أقلام حبر",3,"",50,25000,1000,29,""],
+["أوراق مليمترية",3,"",1,null,500,104,"سعر الشراء منسي"],
+["حلوى فلاي",4,"",null,8500,100,101,"عدّ علبة كاملة باش نعرفو كلفة القطعة"],
+["علكة سويت",4,"",142,8500,100,365,"142 في العلبة تقريبي"],
+["علكة Ballon",4,"",194,10000,100,174,""],
+["علكة Génial",4,"",133,8500,100,36,"133 في العلبة تقريبي"],
+["بطاقة تيليكوم 1 د",5,"",1,1150,1500,14,""],
+["بطاقة أورنج 1 د",5,"",1,1150,1500,3,""],
+["بطاقة أوريدو 1 د",5,"",1,1150,1500,10,""]
+];
+var S,tab="today",sheet=null,ui={q:"",sec:"الكل",period:"today"};
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function seed(){
+  return {v:1,products:SEED.map(function(r,i){return {id:"p"+i,name:r[0],sec:SECS[r[1]],bc:r[2],per:r[3],cprice:r[4],sell:r[5],stock:r[6],note:r[7]}}),
+    sales:[],cartons:[],customers:[],credit:[],expenses:[],
+    home:[{id:"h0",name:"فريكاسي",sell:1200,ucost:null,plan:30}],homeDays:[]};
 }
-function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
-function dayKey(d){d=d||new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function load(){
+  try{var t=localStorage.getItem(KEY);if(t){S=JSON.parse(t);if(S&&S.products)return}}catch(e){}
+  S=seed();save();
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast("ما نجّمتش نسجّل: الذاكرة معبّية")}}
 
-/* ---------- state ---------- */
-var state={products:{},days:{},debts:{}};
-var cart={};            /* product id -> pieces, only on this screen */
-var tab="sell", period="today", sheet=null;
-var LS="hisab-mahal-v1";
-function loadLocal(){try{var x=JSON.parse(localStorage.getItem(LS)||"null");if(x&&x.products&&x.days){state=x;if(!state.debts)state.debts={};}}catch(e){}}
-function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function addDays(iso,n){var p=iso.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]+n);return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+/* money is kept in millimes; shown as dinars with 3 decimals */
+function dt(m){if(m==null||isNaN(m))return '<span class="soft">؟</span>';var r=Math.round(m),neg=r<0;r=Math.abs(r);
+  return '<bdi class="n">'+(neg?"−":"")+Math.floor(r/1000)+","+("00"+(r%1000)).slice(-3)+'</bdi> د'}
+function num(v){var s=String(v==null?"":v).replace(/[٠-٩]/g,function(c){return "٠١٢٣٤٥٦٧٨٩".indexOf(c)}).replace(/٫|,/g,".").replace(/[^0-9.]/g,"");
+  if(s===""||s===".")return null;var f=parseFloat(s);return isNaN(f)?null:f}
+/* typed in dinars; a number too big to be dinars is read as millimes (500 means 0,500 د) */
+function money(v,limit){var f=num(v);if(f==null)return null;return f>=limit?Math.round(f):Math.round(f*1000)}
+function piece(v){return money(v,50)}
+function carton(v){return money(v,1000)}
+function amount(v){return money(v,100000)}
+function int(v){var f=num(v);return f==null?null:Math.round(f)}
+function cost(p){return (p.cprice!=null&&p.per)?p.cprice/p.per:null}
+function prod(id){for(var i=0;i<S.products.length;i++)if(S.products[i].id===id)return S.products[i];return null}
+function cust(id){for(var i=0;i<S.customers.length;i++)if(S.customers[i].id===id)return S.customers[i];return null}
+function hitem(id){for(var i=0;i<S.home.length;i++)if(S.home[i].id===id)return S.home[i];return null}
+function owed(cid){var t=0;S.credit.forEach(function(c){if(c.cid===cid)t+=c.amt});return t}
+function hday(hid,d,make){for(var i=0;i<S.homeDays.length;i++){var x=S.homeDays[i];if(x.hid===hid&&x.d===d)return x}
+  if(!make)return null;var h=hitem(hid),r={hid:hid,d:d,made:0,sold:0,sell:h.sell,ucost:h.ucost};S.homeDays.push(r);return r}
+function verdict(p){var c=cost(p);
+  if(p.sell==null)return ["a","ينقص سعر البيع"];
+  if(c==null)return ["a","ينقص سعر الشراء"];
+  var d=Math.round(p.sell-c);
+  if(d>0)return ["g","ربح"];if(d<0)return ["r","خسارة"];return ["a","بلاش"]}
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on")},2400)}
 
-/* ---------- saving outside the phone ---------- */
-var db=null, queue={}, seen={}, syncFail=false, dbTried=false;
-function busyCount(){var n=0;for(var k in queue)if(queue[k].busy)n++;return n;}
-function setStatus(){
-  var el=document.getElementById("status");
-  if(!dbTried)el.textContent="";
-  else if(!db||syncFail)el.textContent="محفوظ على هذا الهاتف فقط";
-  else if(busyCount())el.textContent="جارٍ الحفظ…";
-  else el.textContent="محفوظ";
-}
-function persist(path){
-  saveLocal();
-  if(!db)return;
-  var e=queue[path]||(queue[path]={busy:false,dirty:false});
-  if(e.busy){e.dirty=true;return;}
-  e.busy=true;setStatus();
-  (async function(){
-    try{
-      do{
-        e.dirty=false;
-        var p=path.split("/"),data=state[p[0]][p[1]],ref=db.doc(path);
-        if(data)await ref.set(JSON.parse(JSON.stringify(data)));else await ref.delete();
-      }while(e.dirty);
-      syncFail=false;
-    }catch(err){syncFail=true;}
-    e.busy=false;setStatus();
-  })();
-}
-function applySnap(coll,snap){
-  var remote={};
-  snap.docs.forEach(function(d){var x=d.data();if(x)remote[d.id]=JSON.parse(JSON.stringify(x));});
-  var definitive=!snap.metadata.fromCache, local=state[coll];
-  if(definitive&&!seen[coll]){
-    seen[coll]=true;
-    if(snap.empty){Object.keys(local).forEach(function(id){persist(coll+"/"+id);});return;}
-  }
-  var next={},ids={},id;
-  for(id in local)ids[id]=1;for(id in remote)ids[id]=1;
-  for(id in ids){
-    var q=queue[coll+"/"+id];
-    if(q&&q.busy){if(local[id])next[id]=local[id];}
-    else if(remote[id])next[id]=remote[id];
-    else if(!definitive&&local[id])next[id]=local[id];
-  }
-  state[coll]=next;saveLocal();render();
-}
-async function connect(){
-  try{
-    if(window.claude&&window.claude.use)db=await window.claude.use("db");
-  }catch(e){db=null;}
-  dbTried=true;setStatus();
-  if(!db)return;
-  ["products","days","debts"].forEach(function(coll){
-    try{db.collection(coll).onSnapshot(function(s){applySnap(coll,s);},function(){syncFail=true;setStatus();});}
-    catch(e){syncFail=true;setStatus();}
-  });
-}
-
-/* ---------- helpers on the data ---------- */
-function productList(){return Object.keys(state.products).map(function(id){var p=state.products[id];p.id=id;return p;}).sort(function(a,b){return String(a.name).localeCompare(String(b.name),"ar");});}
-function today(){var k=dayKey();if(!state.days[k])state.days[k]={sales:[],expenses:[]};var d=state.days[k];if(!d.sales)d.sales=[];if(!d.expenses)d.expenses=[];return d;}
-function periodKeys(){
-  var keys=Object.keys(state.days).sort(),now=new Date(),t=dayKey(now);
-  if(period==="today")return keys.filter(function(k){return k===t;});
-  if(period==="week"){var d=new Date(now);d.setDate(d.getDate()-6);var from=dayKey(d);return keys.filter(function(k){return k>=from&&k<=t;});}
-  if(period==="month"){var m=t.slice(0,7);return keys.filter(function(k){return k.slice(0,7)===m;});}
-  return keys;
-}
-function totals(keys){
-  var r={income:0,cost:0,exp:0,pers:0,pieces:0,by:{},log:[]};
-  keys.forEach(function(k){
-    var d=state.days[k]||{};
-    (d.sales||[]).forEach(function(s){
-      r.income+=s.q*s.s;r.cost+=s.q*s.c;r.pieces+=s.q;
-      var b=r.by[s.n]||(r.by[s.n]={name:s.n,q:0,profit:0});b.q+=s.q;b.profit+=s.q*(s.s-s.c);
-      r.log.push({kind:"sale",day:k,id:s.i,t:s.t,text:s.q+" × "+s.n+(s.dn?" (كريدي: "+s.dn+")":""),amount:s.q*s.s});
-    });
-    (d.expenses||[]).forEach(function(x){var per=x.k==="p";if(per)r.pers+=x.a;else r.exp+=x.a;r.log.push({kind:"exp",day:k,id:x.i,t:x.t,text:(per?"مصروف شخصي: ":"مصروف المحل: ")+(x.n||"بدون اسم"),amount:-x.a});});
-  });
-  r.profit=r.income-r.cost-r.exp;
-  r.log.sort(function(a,b){return b.t-a.t;});
-  return r;
-}
-function verdictOf(per){return per>0.5?"good":(per<-0.5?"bad":"warn");}
+/* ---------- numbers for a period ---------- */
+function range(k){var t=today();if(k==="today")return [t,t];if(k==="week")return [addDays(t,-6),t];if(k==="month")return [t.slice(0,8)+"01",t];return ["0000-00-00","9999-99-99"]}
+function totals(k){var r=range(k),a=r[0],b=r[1],o={sales:0,known:0,profit:0,unknown:0,hIn:0,hCost:0,hNoCost:false,shop:0,personal:0,bought:0,per:{}};
+  S.sales.forEach(function(s){if(s.d<a||s.d>b)return;var v=s.qty*s.sell;o.sales+=v;
+    var e=o.per[s.pid]||(o.per[s.pid]={name:s.name,qty:0,v:0,profit:0,unknown:false});e.qty+=s.qty;e.v+=v;
+    if(s.cost==null){o.unknown+=v;e.unknown=true}else{o.known+=v;var g=v-s.qty*s.cost;o.profit+=g;e.profit+=g}});
+  S.homeDays.forEach(function(h){if(h.d<a||h.d>b)return;o.hIn+=h.sold*h.sell;if(h.ucost==null){if(h.made||h.sold)o.hNoCost=true}else o.hCost+=h.made*h.ucost});
+  S.expenses.forEach(function(e){if(e.d<a||e.d>b)return;if(e.kind==="personal")o.personal+=e.amt;else o.shop+=e.amt});
+  S.cartons.forEach(function(c){if(c.d<a||c.d>b)return;o.bought+=c.n*c.price});
+  o.hProfit=o.hIn-o.hCost;o.gross=o.profit+o.hProfit;o.net=o.gross-o.shop;o.income=o.sales+o.hIn;return o}
+function stockTotals(){var o={cost:0,sell:0,profit:0,noCost:0,pieces:0};S.products.forEach(function(p){var c=cost(p),v=(p.sell||0)*p.stock;o.pieces+=p.stock;o.sell+=v;
+  if(c==null)o.noCost+=v;else{o.cost+=c*p.stock;o.profit+=v-c*p.stock}});return o}
 
 /* ---------- screens ---------- */
-function renderSell(){
-  var ps=productList(),h="";
-  if(!ps.length){
-    h+='<div class="verdict"><div class="big">ابدأ بتسجيل سلعة</div><p>اكتب بكم اشتريت الكرتونة، كم قطعة فيها، وبكم تبيع القطعة. الحساب كله عليّ.</p></div>';
-    h+='<button type="button" class="btn primary wide" data-act="new-product">أضف أول سلعة</button><button type="button" class="btn wide" data-act="new-home">أضف شيئاً تصنعه في البيت (سندويتشات…)</button>';
-    h+='<div class="calc good"><div class="muted">مثال فقط</div><div class="head">كرتونة عصير: رابحة</div><ul><li>اشتريتها بـ '+dt(12000)+' وفيها 24 قطعة</li><li>القطعة تكلّفك '+dt(500)+'</li><li>تبيعها بـ '+dt(700)+'، تربح '+dt(200)+' في كل قطعة</li><li>ربح الكرتونة كاملة '+dt(4800)+'</li></ul></div>';
-  }else{
-    var t=totals([dayKey()]);
-    h+=verdictBox(t,"اليوم");
-    h+='<h2>اضغط على السلعة التي بعتها</h2><div class="grid">';
-    ps.forEach(function(p){
-      var q=cart[p.id]||0;
-      h+='<div class="wrapitem"><button type="button" class="item'+(q?" on":"")+'" data-act="add" data-id="'+p.id+'"><span class="nm">'+esc(p.name)+'</span><span class="pr">'+dt(p.sell)+'</span><span class="pr">باقي '+(p.stock||0)+'</span>'+(q?'<span class="qty num">'+q+'</span>':'')+'</button>'+(q?'<button type="button" class="minus" data-act="sub" data-id="'+p.id+'" aria-label="انقص واحدة من '+esc(p.name)+'">−</button>':'')+'</div>';
-    });
-    h+='</div>';
-  }
-  document.getElementById("tab-sell").innerHTML=h;
-  renderCart();
-}
-function cartSum(){var n=0,sum=0;for(var id in cart){var p=state.products[id];if(!p){delete cart[id];continue;}n+=cart[id];sum+=cart[id]*p.sell;}return {n:n,sum:sum};}
-function renderCart(){
-  var c=cartSum(),el=document.getElementById("cartbar");
-  if(tab!=="sell"||!c.n){el.hidden=true;el.innerHTML="";return;}
-  el.hidden=false;
-  el.innerHTML='<div class="in"><span><span class="num">'+c.n+'</span> قطعة، المجموع <b>'+dt(c.sum)+'</b></span><button type="button" class="btn primary small" data-act="checkout">أكمل البيع</button></div>';
-}
-function verdictBox(t,label){
-  if(!t.income&&!t.exp&&!t.pers)return '<div class="verdict"><div class="big">'+label+': لا يوجد بيع بعد</div><p>سجّل ما تبيعه وسأقول لك هل أنت رابح أم خاسر.</p></div>';
-  var cls=t.profit>0?"good":(t.profit<0?"bad":"");
-  var head=t.profit>0?"المحل رابح":(t.profit<0?"المحل خاسر":"لا ربح ولا خسارة");
-  var h='<div class="verdict '+cls+'"><div class="big">'+label+': '+head+'</div><div class="amount">'+dt(Math.abs(t.profit))+'</div><p>دخل '+dt(t.income)+' ناقص ثمن السلع '+dt(t.cost)+(t.exp?' ناقص كراء ومصاريف المحل '+dt(t.exp):'')+'</p>';
-  if(t.pers){var left=t.profit-t.pers;h+='<p>صرفت على نفسك '+dt(t.pers)+'. '+(left>=0?'يبقى لك من الربح '+dt(left)+'.':'<b>صرفت أكثر من ربح المحل بـ '+dt(-left)+'.</b>')+'</p>';}
-  return h+'</div>';
-}
-function debtList(){return Object.keys(state.debts).map(function(id){var d=state.debts[id];d.id=id;return d;}).sort(function(a,b){return b.owed-a.owed;});}
-function debtTotal(){var n=0;for(var id in state.debts)n+=state.debts[id].owed||0;return n;}
-function renderDebts(){
-  var ds=debtList(),h;
-  if(!ds.length)h='<div class="verdict"><div class="big">لا أحد عليه كريدي</div><p>عندما تبيع لحريف ويخلّص من بعد، اختر السلع في «بيع»، اضغط «أكمل البيع»، اكتب اسمه واضغط «بيع بالكريدي». اسمه يظهر هنا مع المبلغ.</p></div>';
-  else{
-    h='<div class="verdict bad"><div class="big">عند الناس</div><div class="amount">'+dt(debtTotal())+'</div><p>هذا مال بعت به ولم تقبضه بعد.</p></div>';
-    ds.forEach(function(d){h+='<div class="card"><div class="row between"><b>'+esc(d.name)+'</b><b>'+dt(d.owed)+'</b></div><div class="row" style="margin-top:8px"><button type="button" class="btn small primary" data-act="pay" data-id="'+d.id+'">خلّص (دفع)</button></div></div>';});
-  }
-  document.getElementById("tab-debts").innerHTML=h;
-}
-function renderProducts(){
-  var ps=productList(),h='<button type="button" class="btn primary wide" data-act="new-product">أضف سلعة اشتريتها</button><button type="button" class="btn wide" data-act="new-home">أضف شيئاً تصنعه في البيت (سندويتشات…)</button>';
-  if(!ps.length)h+='<p class="muted">لا توجد سلع بعد.</p>';
-  ps.forEach(function(p){
-    var per=p.sell-p.cost,v=verdictOf(per);
-    var pill=v==="good"?'<span class="pill good">رابحة</span>':(v==="bad"?'<span class="pill bad">خاسرة</span>':'<span class="pill warn">بدون ربح</span>');
-    h+='<div class="card"><div class="row between"><b>'+esc(p.name)+'</b>'+pill+'</div><dl class="kv">'
-     +'<dt>القطعة تكلّفك</dt><dd>'+dt(p.cost)+'</dd>'
-     +'<dt>تبيعها بـ</dt><dd>'+dt(p.sell)+'</dd>'
-     +'<dt>'+(per<0?"تخسر في كل قطعة":"تربح في كل قطعة")+'</dt><dd>'+dt(Math.abs(per))+'</dd>'
-     +'<dt>الباقي عندك</dt><dd><span class="num">'+(p.stock||0)+'</span> قطعة</dd></dl>'
-     +(v==="bad"?'<p class="err">بع القطعة بأكثر من '+dt(Math.ceil(p.cost))+' حتى لا تخسر.</p>':'')
-     +'<div class="row"><button type="button" class="btn small" data-act="restock" data-id="'+p.id+'">'+(p.ing?"صنعت كمية جديدة":"اشتريت كرتونة جديدة")+'</button><button type="button" class="btn small" data-act="edit" data-id="'+p.id+'">تعديل</button></div></div>';
+function stampOf(v,has){if(!has)return '<span class="stamp w">مازال</span>';return v>0?'<span class="stamp g">رابح</span>':v<0?'<span class="stamp r">خاسر</span>':'<span class="stamp w">بلاش</span>'}
+function rToday(){
+  var t=totals("today"),d=today(),has=t.income>0||t.hCost>0,h='';
+  h+='<div class="sheet verdict">'+stampOf(t.gross,has)+'<p>'+(has?'ربح اليوم <span class="big">'+dt(t.gross)+'</span><br><span class="soft">بعت بـ '+dt(t.income)+'</span>':'ما سجّلتش بيع اليوم. اضغط على السلعة اللي بعتها.')+'</p></div>';
+  /* home-made */
+  S.home.forEach(function(it){var r=hday(it.id,d)||{made:0,sold:0,sell:it.sell,ucost:it.ucost};
+    var inc=r.sold*r.sell,left=r.made-r.sold;
+    h+='<h2>'+esc(it.name)+' اليوم</h2><div class="sheet">'
+     +'<div class="line"><div class="t"><b>حضّرت</b><span>العادة '+it.plan+'</span></div><div class="step"><button type="button" data-act="hm" data-id="'+it.id+'" data-k="made" data-n="-1" aria-label="نقّص">−</button><output>'+r.made+'</output><button type="button" data-act="hm" data-id="'+it.id+'" data-k="made" data-n="1" aria-label="زيد">+</button></div></div>'
+     +'<div class="line"><div class="t"><b>بعت</b><span>'+(r.made?(left>0?'باقي '+left:'كمّلتهم الكل'):'القطعة بـ '+dt(it.sell))+'</span></div><div class="step"><button type="button" data-act="hm" data-id="'+it.id+'" data-k="sold" data-n="-1" aria-label="نقّص">−</button><output>'+r.sold+'</output><button type="button" data-act="hm" data-id="'+it.id+'" data-k="sold" data-n="1" aria-label="زيد">+</button></div></div>'
+     +'<div class="line sum"><div class="t"><b>الدخل</b><span>'+(r.ucost==null?'الكلفة موش مسجّلة، الربح موش معروف':'الربح '+dt(inc-r.made*r.ucost))+'</span></div><div class="v">'+dt(inc)+'</div></div>'
+     +'<div class="pad row"><button type="button" class="btn sm" data-act="hfill" data-id="'+it.id+'">حضّرت '+it.plan+'</button><button type="button" class="btn sm" data-act="hall" data-id="'+it.id+'">تباعو الكل</button><button type="button" class="btn sm" data-act="hset" data-id="'+it.id+'">السعر والكلفة</button></div></div>';
   });
-  document.getElementById("tab-products").innerHTML=h;
+  h+='<div class="row" style="margin-top:10px"><button type="button" class="btn sm" data-act="hnew">+ حاجة أخرى نصنعها في الدار</button></div>';
+  /* sell */
+  h+='<h2>بيع سلعة</h2><div class="row"><input class="grow" type="search" id="q" placeholder="لوّج بالاسم ولا بالباركود" value="'+esc(ui.q)+'" autocomplete="off">'
+    +(window.Android?'<button type="button" class="btn" data-act="scan">سكاني</button>':'')+'</div><div id="found" style="margin-top:10px"></div>';
+  /* log */
+  var log=S.sales.filter(function(s){return s.d===d}).reverse();
+  h+='<h2>بيع اليوم</h2><div class="sheet">';
+  if(!log.length)h+='<div class="empty">فارغ. كل بيعة تسجّلها تظهر هنا.</div>';
+  log.forEach(function(s){h+='<div class="line"><div class="t"><b>'+esc(s.name)+' × '+s.qty+'</b><span>'+(s.cid?'كريدي: '+esc((cust(s.cid)||{}).name||'؟'):'نقداً')+'</span></div><div class="v">'+dt(s.qty*s.sell)+'</div><button type="button" class="btn sm warn" data-act="unsell" data-id="'+s.id+'">امسح</button></div>'});
+  h+='</div>';
+  $("tab-today").innerHTML=h;rFound();
 }
-function renderReport(){
-  var names={today:"اليوم",week:"آخر 7 أيام",month:"هذا الشهر",all:"الكل"},t=totals(periodKeys());
-  var h='<div class="seg">';
-  ["today","week","month","all"].forEach(function(k){h+='<button type="button" data-act="period" data-id="'+k+'" aria-pressed="'+(period===k)+'">'+names[k]+'</button>';});
-  h+='</div>'+verdictBox(t,names[period]);
-  h+='<div class="tiles">'
-    +'<div class="tile"><span class="lbl">الدخل (ما قبضته)</span><b>'+dt(t.income)+'</b></div>'
-    +'<div class="tile"><span class="lbl">ثمن السلع المباعة</span><b>'+dt(t.cost)+'</b></div>'
-    +'<div class="tile"><span class="lbl">كراء ومصاريف المحل</span><b>'+dt(t.exp)+'</b></div>'
-    +'<div class="tile"><span class="lbl">مصاريفك الشخصية</span><b>'+dt(t.pers)+'</b></div>'
-    +'<div class="tile"><span class="lbl">كريدي عند الناس (الآن)</span><b>'+dt(debtTotal())+'</b></div>'
-    +'<div class="tile"><span class="lbl">قطع مباعة</span><b><span class="num">'+t.pieces+'</span></b></div></div>';
-  h+='<button type="button" class="btn wide" data-act="new-expense" data-id="s">سجّل كراء المحل أو مصروفاً له (ضوء، ماء، نقل…)</button><button type="button" class="btn wide" data-act="new-expense" data-id="p">سجّل مصروفاً شخصياً</button>';
-  var by=Object.keys(t.by).map(function(k){return t.by[k];}).sort(function(a,b){return b.profit-a.profit;});
-  if(by.length){
-    h+='<h2>ربح كل سلعة</h2><div class="card list">';
-    by.forEach(function(b){h+='<div class="line"><span class="t">'+esc(b.name)+' <span class="muted">(<span class="num">'+b.q+'</span> قطعة)</span></span><span class="pill '+(b.profit>0?"good":(b.profit<0?"bad":"warn"))+'">'+(b.profit<0?"خسارة ":"ربح ")+dt(Math.abs(b.profit))+'</span></div>';});
-    h+='</div>';
-  }
-  if(t.log.length){
-    h+='<h2>السجل</h2><div class="card list">';
-    t.log.slice(0,60).forEach(function(l){
-      var d=new Date(l.t),when=l.day.slice(8)+"/"+l.day.slice(5,7)+" "+("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2);
-      h+='<div class="line"><span class="t">'+esc(l.text)+'<br><span class="muted num">'+when+'</span></span><span class="row"><b>'+dt(l.amount)+'</b><button type="button" class="btn small danger" data-act="del-log" data-kind="'+l.kind+'" data-day="'+l.day+'" data-id="'+l.id+'">حذف</button></span></div>';
-    });
-    h+='</div>';
-    if(t.log.length>60)h+='<p class="muted">يظهر آخر 60 سطراً فقط. الحساب فوق يشمل الكل.</p>';
-  }
-  document.getElementById("tab-report").innerHTML=h;
+function rFound(){var e=$("found");if(!e)return;var q=ui.q.trim().toLowerCase(),h='<div class="sheet">';
+  var list=S.products.filter(function(p){return !q||p.name.toLowerCase().indexOf(q)>=0||(p.bc&&p.bc.indexOf(q)>=0)});
+  if(!q){var cnt={};S.sales.forEach(function(s){cnt[s.pid]=(cnt[s.pid]||0)+s.qty});list=list.slice().sort(function(a,b){return (cnt[b.id]||0)-(cnt[a.id]||0)})}
+  if(!list.length)h+='<div class="empty">ما لقيتش سلعة بالاسم هذا. <button type="button" class="btn sm" data-act="pnew">زيدها</button></div>';
+  list.forEach(function(p){h+='<button type="button" class="line" data-act="sell" data-id="'+p.id+'"><div class="t"><b>'+esc(p.name)+'</b><span>عندك '+p.stock+'</span></div><div class="v">'+dt(p.sell)+'</div></button>'});
+  e.innerHTML=h+'</div>'}
+function rGoods(){
+  var st=stockTotals(),h='';
+  h+='<div class="sheet"><div class="line sum"><div class="t"><b>قيمة السلعة بسعر البيع</b><span>'+st.pieces+' قطعة</span></div><div class="v">'+dt(st.sell)+'</div></div>'
+    +'<div class="line"><div class="t"><b>شريتها بـ</b><span>السلع اللي سعر شراها معروف</span></div><div class="v">'+dt(st.cost)+'</div></div>'
+    +'<div class="line"><div class="t"><b>الربح المتوقع</b><span>وقت تبيعها الكل</span></div><div class="v '+(st.profit<0?'red':'green')+'">'+dt(st.profit)+'</div></div></div>';
+  h+='<div class="row" style="margin:14px 0 6px"><button type="button" class="btn go grow" data-act="pnew">+ سلعة جديدة</button></div>';
+  h+='<div class="chips">'+["الكل"].concat(SECS).map(function(s){return '<button type="button" data-act="sec" data-s="'+esc(s)+'" aria-pressed="'+(ui.sec===s)+'">'+esc(s)+'</button>'}).join("")+'</div>';
+  var list=S.products.filter(function(p){return ui.sec==="الكل"||p.sec===ui.sec});
+  h+='<div class="sheet">';
+  if(!list.length)h+='<div class="empty">ما ثمة سلع في القسم هذا.</div>';
+  list.forEach(function(p){var c=cost(p),v=verdict(p),g=(c!=null&&p.sell!=null)?p.sell-c:null;
+    h+='<button type="button" class="line" data-act="pview" data-id="'+p.id+'"><div class="t"><b>'+esc(p.name)+'</b><span>عندك '+p.stock+(p.note?' · فيها ملاحظة':'')+'</span></div><div class="v"><span class="pill '+v[0]+'">'+v[1]+(g!=null&&Math.round(g)!==0?' '+dt(Math.abs(g)):'')+'</span><small>تبيع '+dt(p.sell)+'</small></div></button>'});
+  $("tab-goods").innerHTML=h+'</div>';
 }
-function render(){
-  ["sell","products","debts","report"].forEach(function(k){document.getElementById("tab-"+k).hidden=(k!==tab);});
-  document.querySelectorAll("nav button").forEach(function(b){if(b.dataset.tab===tab)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");});
-  if(tab==="sell")renderSell();else{renderCart();if(tab==="products")renderProducts();else if(tab==="debts")renderDebts();else renderReport();}
+function rCredit(){
+  var tot=0,h='';S.customers.forEach(function(c){tot+=owed(c.id)});
+  h+='<div class="sheet verdict"><p>الناس تسالك <span class="big">'+dt(tot)+'</span></p></div>';
+  h+='<div class="row" style="margin:14px 0 6px"><button type="button" class="btn go grow" data-act="cnew">+ حريف جديد</button></div><div class="sheet">';
+  if(!S.customers.length)h+='<div class="empty">ما ثمة حتى حريف. زيد أول واحد ياخو بالكريدي.</div>';
+  S.customers.slice().sort(function(a,b){return owed(b.id)-owed(a.id)}).forEach(function(c){var o=owed(c.id);
+    h+='<button type="button" class="line" data-act="cview" data-id="'+c.id+'"><div class="t"><b>'+esc(c.name)+'</b><span>'+(o>0?'يسالك':'خالص')+'</span></div><div class="v '+(o>0?'red':'green')+'">'+dt(o)+'</div></button>'});
+  $("tab-credit").innerHTML=h+'</div>';
 }
+function rSpend(){
+  var t=totals("month"),m=today().slice(0,7),h='';
+  h+='<div class="sheet"><div class="line"><div class="t"><b>مصاريف المحل الشهر هذا</b><span>كراء، ضو، ماء، نقل…</span></div><div class="v">'+dt(t.shop)+'</div></div>'
+    +'<div class="line"><div class="t"><b>مصاريفك الشخصية</b><span>اللي تاخوه من الكاسة</span></div><div class="v">'+dt(t.personal)+'</div></div></div>';
+  h+='<div class="row" style="margin:14px 0 6px"><button type="button" class="btn go grow" data-act="enew" data-k="shop">+ مصروف المحل</button><button type="button" class="btn grow" data-act="enew" data-k="personal">+ مصروف شخصي</button></div>';
+  var list=S.expenses.filter(function(e){return e.d.slice(0,7)===m}).sort(function(a,b){return a.d<b.d?1:-1});
+  h+='<h2>الشهر هذا</h2><div class="sheet">';
+  if(!list.length)h+='<div class="empty">ما سجّلتش مصاريف الشهر هذا.</div>';
+  list.forEach(function(e){h+='<div class="line"><div class="t"><b>'+esc(e.label)+'</b><span>'+(e.kind==="personal"?'شخصي':'المحل')+' · <bdi class="n">'+e.d+'</bdi></span></div><div class="v">'+dt(e.amt)+'</div><button type="button" class="btn sm warn" data-act="edel" data-id="'+e.id+'">امسح</button></div>'});
+  $("tab-spend").innerHTML=h+'</div>';
+}
+function rReport(){
+  var t=totals(ui.period),h='',names={today:"اليوم",week:"7 أيام",month:"الشهر هذا",all:"الكل"};
+  h+='<div class="chips">'+Object.keys(names).map(function(k){return '<button type="button" data-act="period" data-k="'+k+'" aria-pressed="'+(ui.period===k)+'">'+names[k]+'</button>'}).join("")+'</div>';
+  var has=t.income>0||t.shop>0||t.hCost>0;
+  h+='<div class="sheet verdict">'+stampOf(t.net,has)+'<p>'+(has?'الصافي بعد مصاريف المحل <span class="big">'+dt(t.net)+'</span>':'ما ثمة حتى حركة في المدة هذي.')+'</p></div>';
+  h+='<h2>من وين جا</h2><div class="sheet">'
+    +'<div class="line"><div class="t"><b>بيع السلع</b><span>ربحت فيها '+dt(t.profit)+'</span></div><div class="v">'+dt(t.sales)+'</div></div>'
+    +'<div class="line"><div class="t"><b>اللي نصنعو في الدار</b><span>'+(t.hNoCost?'ثمة أيام بلا كلفة مسجّلة':'ربحت فيه '+dt(t.hProfit))+'</span></div><div class="v">'+dt(t.hIn)+'</div></div>'
+    +'<div class="line"><div class="t"><b>مصاريف المحل</b></div><div class="v red">'+dt(-t.shop)+'</div></div>'
+    +'<div class="line sum"><div class="t"><b><span class="mark">الصافي</span></b></div><div class="v '+(t.net<0?'red':'green')+'">'+dt(t.net)+'</div></div>'
+    +'<div class="line"><div class="t"><b>مصاريفك الشخصية</b></div><div class="v">'+dt(-t.personal)+'</div></div>'
+    +'<div class="line sum"><div class="t"><b>يبقالك</b></div><div class="v '+(t.net-t.personal<0?'red':'green')+'">'+dt(t.net-t.personal)+'</div></div></div>';
+  if(t.unknown>0)h+='<p class="soft">بعت بـ '+dt(t.unknown)+' من سلع سعر شراها موش معروف، ربحها موش محسوب.</p>';
+  if(t.bought>0)h+='<p class="soft">شريت سلعة جديدة بـ '+dt(t.bought)+' في المدة هذي.</p>';
+  var per=Object.keys(t.per).map(function(k){return t.per[k]}).sort(function(a,b){return b.profit-a.profit});
+  if(per.length){h+='<h2>ربح كل سلعة</h2><div class="sheet">';per.forEach(function(e){h+='<div class="line"><div class="t"><b>'+esc(e.name)+'</b><span>بعت '+e.qty+' بـ '+dt(e.v)+'</span></div><div class="v '+(e.unknown?'':(e.profit<0?'red':'green'))+'">'+(e.unknown?'<span class="pill a">ينقص سعر الشراء</span>':dt(e.profit))+'</div></div>'});h+='</div>'}
+  var notes=S.products.filter(function(p){return p.note||verdict(p)[0]!=="g"});
+  if(notes.length){h+='<h2>حاجات تتثبّت فيها</h2><div class="sheet">';notes.forEach(function(p){var v=verdict(p);h+='<button type="button" class="line" data-act="pview" data-id="'+p.id+'"><div class="t"><b>'+esc(p.name)+'</b><span>'+esc(p.note||"")+'</span></div><div class="v"><span class="pill '+v[0]+'">'+v[1]+'</span></div></button>'});h+='</div>'}
+  h+='<h2>نسخة احتياطية</h2><div class="sheet pad"><p class="soft" style="margin-top:0">المعلومات مسجّلة في التليفون هذا أكهو. اعمل نسخة من وقت لوقت وابعثها لروحك.</p><div class="row"><button type="button" class="btn grow" data-act="backup">اعمل نسخة</button><button type="button" class="btn grow" data-act="restore">رجّع نسخة</button></div></div>';
+  $("tab-report").innerHTML=h;
+}
+function render(){var d=new Date();$("date").innerHTML='<bdi class="n">'+("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear()+'</bdi>';
+  ({today:rToday,goods:rGoods,credit:rCredit,spend:rSpend,report:rReport})[tab]()}
+function go(t){tab=t;["today","goods","credit","spend","report"].forEach(function(k){$("tab-"+k).hidden=k!==t});
+  document.querySelectorAll("nav button").forEach(function(b){if(b.dataset.tab===t)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+  render();window.scrollTo(0,0)}
 
 /* ---------- sheets ---------- */
-function openSheet(s){sheet=s;drawSheet();document.getElementById("overlay").hidden=false;var f=document.querySelector("#sheet input");if(f&&s.focus!==false)f.focus();}
-function closeSheet(){sheet=null;document.getElementById("overlay").hidden=true;document.getElementById("sheet").innerHTML="";}
-function field(id,label,val,mode,hint){return '<label class="f" for="'+id+'">'+label+'<input id="'+id+'" type="text" inputmode="'+mode+'" autocomplete="off" value="'+esc(val==null?"":val)+'"'+(hint?' placeholder="'+hint+'"':'')+'><span class="echo" id="'+id+'-echo"></span></label>';}
-function drawSheet(){
-  var s=sheet,h="",p;
-  var v=s.vals||{};
-  function pick(k,d){return v[k]!=null?v[k]:d;}
-  if(s.type==="product"){
-    p=s.id?state.products[s.id]:null;
-    h='<h2>'+(p?"تعديل":(s.home?"شيء تصنعه في البيت":"سلعة جديدة"))+'</h2>'
-     +field("f-name",s.home?"ماذا تصنع؟":"اسم السلعة",pick("name",p?p.name:""),"text",s.home?"مثال: سندويتش تن":"مثال: عصير")
-     +(s.home?ingHtml(s):field("f-buy","بكم اشتريت الكرتونة (أو الكمية كلها)؟",p?inField(p.buy):"","decimal","مثال: 12.000"))
-     +field("f-pcs",s.home?"كم سندويتش (قطعة) خرج منها؟":"كم قطعة فيها؟",pick("pcs",p?p.pcs:""),"numeric",s.home?"مثال: 10":"مثال: 24")
-     +field("f-sell","بكم تبيع القطعة الواحدة؟",pick("sell",p?inField(p.sell):""),"decimal",s.home?"مثال: 2.500":"مثال: 0.700")
-     +(p?field("f-stock","كم قطعة باقية عندك الآن؟",pick("stock",p.stock||0),"numeric",""):"")
-     +'<div class="calc" id="calc"></div><div class="err" id="f-err"></div>'
-     +'<button type="button" class="btn primary wide" data-act="save-product">احفظ</button>'
-     +(p?'<button type="button" class="btn danger wide" data-act="ask-del-product">احذف</button>':'')
-     +'<button type="button" class="btn wide" data-act="close">إلغاء</button>';
-  }else if(s.type==="restock"){
-    p=state.products[s.id];
-    h='<h2>'+(s.home?"كمية جديدة: ":"كرتونة جديدة: ")+esc(p.name)+'</h2>'
-     +(s.home?ingHtml(s):field("f-buy","بكم اشتريتها هذه المرة؟",inField(p.buy),"decimal",""))
-     +field("f-pcs",s.home?"كم سندويتش (قطعة) خرج منها؟":"كم قطعة فيها؟",pick("pcs",p.pcs),"numeric","")
-     +'<div class="calc" id="calc"></div><div class="err" id="f-err"></div>'
-     +'<button type="button" class="btn primary wide" data-act="save-restock">أضفها للمحل</button>'
-     +'<button type="button" class="btn wide" data-act="close">إلغاء</button>';
-  }else if(s.type==="checkout"){
-    var c=cartSum();
-    h='<h2>البيع</h2><div class="card list">';
-    for(var id in cart){p=state.products[id];h+='<div class="line"><span class="t"><span class="num">'+cart[id]+'</span> × '+esc(p.name)+'</span><b>'+dt(cart[id]*p.sell)+'</b></div>';}
-    h+='</div><div class="verdict"><div class="muted">المجموع الذي يدفعه الحريف</div><div class="big">'+dt(c.sum)+'</div></div>'
-     +field("f-paid","كم أعطاك الحريف؟ (اختياري)","","decimal","مثال: 5")
-     +'<div class="calc" id="calc"></div>'
-     +'<button type="button" class="btn primary wide" data-act="confirm-sale">خلّص الآن، سجّل البيع</button>'
-     +field("f-cust","لم يخلّص؟ اكتب اسمه","","text","مثال: عم صالح")
-     +'<div class="err" id="f-err"></div><button type="button" class="btn wide" data-act="credit-sale">بيع بالكريدي (يخلّص من بعد)</button>'
-     +'<button type="button" class="btn wide" data-act="ate">أكلتها أنا أو أخذتها للدار</button>'
-     +'<button type="button" class="btn wide" data-act="close">رجوع</button>';
-  }else if(s.type==="expense"){
-    h='<h2>'+(s.kind==="p"?"مصروف شخصي":"كراء المحل ومصاريفه")+'</h2>'
-     +field("f-note","ما هو؟","","text",s.kind==="p"?"مثال: قهوة":"مثال: كراء")
-     +field("f-amount","كم دفعت؟","","decimal","مثال: 20")
-     +'<div class="err" id="f-err"></div>'
-     +'<button type="button" class="btn primary wide" data-act="save-expense">احفظ</button>'
-     +'<button type="button" class="btn wide" data-act="close">إلغاء</button>';
-  }else if(s.type==="pay"){
-    p=state.debts[s.id];
-    h='<h2>'+esc(p.name)+' عليه '+dt(p.owed)+'</h2>'
-     +field("f-pay","كم دفع لك الآن؟",inField(p.owed),"decimal","")
-     +'<div class="calc" id="calc"></div><div class="err" id="f-err"></div>'
-     +'<button type="button" class="btn primary wide" data-act="save-pay">احفظ</button>'
-     +'<button type="button" class="btn wide" data-act="close">إلغاء</button>';
-  }else if(s.type==="confirm"){
-    h='<h2>'+esc(s.title)+'</h2><p>'+esc(s.text)+'</p>'
-     +'<button type="button" class="btn danger wide" data-act="yes">نعم، احذف</button>'
-     +'<button type="button" class="btn wide" data-act="close">لا</button>';
-  }
-  document.getElementById("sheet").innerHTML=h;
-  liveSheet();
+function open(s){sheet=s;rSheet();$("shade").classList.add("on")}
+function closeSheet(){sheet=null;$("shade").classList.remove("on");$("sheet").innerHTML=""}
+function field(id,label,val,ph,mode,small){return '<label for="'+id+'">'+label+(small?' <small>'+small+'</small>':'')+'</label><input type="text" id="'+id+'" value="'+esc(val==null?"":val)+'" placeholder="'+esc(ph||"")+'" inputmode="'+(mode||"text")+'" autocomplete="off">'}
+function din(m){return m==null?"":(m/1000).toFixed(3)}
+function foot(act,label){return '<div class="row" style="margin-top:16px"><button type="button" class="btn go grow" data-act="'+act+'">'+label+'</button><button type="button" class="btn" data-act="close">سكّر</button></div>'}
+function rSheet(){var s=sheet,h='',p,c;
+  if(s.kind==="sell"){p=prod(s.id);
+    h='<h2>'+esc(p.name)+'</h2><p class="soft">عندك '+p.stock+' · السعر '+dt(p.sell)+'</p>'
+     +'<label>قدّاش بعت</label><div class="step"><button type="button" data-act="q" data-n="-1" aria-label="نقّص">−</button><output id="qty">'+s.qty+'</output><button type="button" data-act="q" data-n="1" aria-label="زيد">+</button><button type="button" data-act="q" data-n="5" aria-label="زيد خمسة" style="width:auto;padding:0 12px;font-size:17px">+5</button></div>'
+     +field("f-price","سعر القطعة",din(s.price),"1.500","decimal","بالدينار")+'<div class="hint" id="hint"></div>'
+     +'<label for="f-cust">بالكريدي؟ <small>خلّيها فارغة إذا خلّص</small></label><select id="f-cust"><option value="">لا، خلّص نقداً</option>'+S.customers.map(function(x){return '<option value="'+x.id+'">'+esc(x.name)+'</option>'}).join("")+'<option value="+">+ حريف جديد</option></select>'
+     +'<div id="newc" hidden>'+field("f-cname","اسم الحريف","","")+'</div>'+foot("sellok","سجّل البيع");
+  }else if(s.kind==="pview"){p=prod(s.id);c=cost(p);var v=verdict(p),g=(c!=null&&p.sell!=null)?p.sell-c:null;
+    var say=v[0]==="g"?'تربح '+dt(g)+' في كل قطعة.':v[0]==="r"?'تخسر '+dt(-g)+' في كل قطعة. زيد في السعر ولا بطّلها.':(g!=null?'تبيعها بسعر شراها، ما تربح فيها شي.':'ما نجّمش نقلّك رابح ولا خاسر: '+v[1]+'.');
+    h='<h2>'+esc(p.name)+'</h2><div class="sheet verdict"><span class="stamp '+(v[0]==="g"?"g":v[0]==="r"?"r":"w")+'">'+v[1]+'</span><p>'+say+'</p></div>'
+     +(p.note?'<p><span class="pill a">ملاحظة</span> '+esc(p.note)+'</p>':'')
+     +'<div class="sheet" style="margin-top:12px"><div class="line"><div class="t"><b>عندك</b></div><div class="v">'+p.stock+' قطعة</div></div>'
+     +'<div class="line"><div class="t"><b>الكرتونة</b><span>'+(p.per?'فيها '+p.per:'العدد موش معروف')+'</span></div><div class="v">'+dt(p.cprice)+'</div></div>'
+     +'<div class="line"><div class="t"><b>القطعة تطلع عليك</b></div><div class="v">'+dt(c)+'</div></div>'
+     +'<div class="line"><div class="t"><b>تبيعها بـ</b></div><div class="v">'+dt(p.sell)+'</div></div>'
+     +'<div class="line"><div class="t"><b>قيمة اللي عندك</b><span>شراء '+dt(c==null?null:c*p.stock)+'</span></div><div class="v">'+dt(p.sell==null?null:p.sell*p.stock)+'</div></div>'
+     +'<div class="line"><div class="t"><b>الباركود</b></div><div class="v"><bdi class="n">'+(esc(p.bc)||"بلا باركود")+'</bdi></div></div></div>'
+     +'<div class="row" style="margin-top:14px"><button type="button" class="btn go grow" data-act="cart" data-id="'+p.id+'">جاتني كرتونة جديدة</button><button type="button" class="btn grow" data-act="sell" data-id="'+p.id+'">بيع</button></div>'
+     +'<div class="row" style="margin-top:10px"><button type="button" class="btn grow" data-act="pedit" data-id="'+p.id+'">بدّل المعلومات</button><button type="button" class="btn" data-act="close">سكّر</button></div>';
+  }else if(s.kind==="pedit"){p=s.id?prod(s.id):{name:"",sec:SECS[0],bc:s.bc||"",per:null,cprice:null,sell:null,stock:0,note:""};
+    h='<h2>'+(s.id?'بدّل المعلومات':'سلعة جديدة')+'</h2>'+field("f-name","الاسم",p.name,"مثلاً: مومنتو")
+     +'<label for="f-sec">القسم</label><select id="f-sec">'+SECS.map(function(x){return '<option'+(x===p.sec?' selected':'')+'>'+esc(x)+'</option>'}).join("")+'</select>'
+     +'<div class="row" style="align-items:flex-end"><div class="grow">'+field("f-bc","الباركود",p.bc,"اختياري","numeric")+'</div>'+(window.Android?'<button type="button" class="btn" data-act="scan">سكاني</button>':'')+'</div>'
+     +field("f-cprice","سعر شراء الكرتونة",din(p.cprice),"24.000","decimal","بالدينار")
+     +field("f-per","قدّاش قطعة في الكرتونة",p.per,"24","numeric","حط 1 إذا تشري بالقطعة")
+     +field("f-sell","سعر بيع القطعة",din(p.sell),"1.500","decimal","بالدينار")
+     +'<div class="hint" id="hint"></div>'
+     +field("f-stock","قدّاش قطعة عندك توّا",p.stock,"0","numeric")
+     +field("f-note","ملاحظة",p.note,"اختياري")
+     +foot("psave","سجّل")+(s.id?'<div class="row" style="margin-top:10px"><button type="button" class="btn warn wide" data-act="pdel" data-id="'+p.id+'">امسح السلعة هذي</button></div>':'');
+  }else if(s.kind==="cart"){p=prod(s.id);
+    h='<h2>كرتونة جديدة: '+esc(p.name)+'</h2><p class="soft">نزيد القطع على اللي عندك ('+p.stock+') ونحسبلك الكلفة.</p>'
+     +field("f-n","قدّاش كرتونة شريت","1","1","numeric")
+     +field("f-per","قدّاش قطعة في الكرتونة",p.per,"24","numeric")
+     +field("f-cprice","سعر الكرتونة الوحدة",din(p.cprice),"24.000","decimal","بالدينار")
+     +field("f-sell","سعر بيع القطعة",din(p.sell),"1.500","decimal","بالدينار")
+     +'<div class="hint" id="hint"></div>'+foot("cartok","زيدها للسلعة");
+  }else if(s.kind==="cnew"){h='<h2>حريف جديد</h2>'+field("f-cname","الاسم","","")+field("f-amt","قدّاش يسالك توّا","","0.000","decimal","بالدينار، اختياري")+foot("cnewok","سجّل");
+  }else if(s.kind==="cview"){c=cust(s.id);var o=owed(c.id);
+    h='<h2>'+esc(c.name)+'</h2><div class="sheet verdict"><p>'+(o>0?'يسالك':'خالص')+' <span class="big '+(o>0?'red':'green')+'">'+dt(o)+'</span></p></div>'
+     +field("f-amt","المبلغ","","0.000","decimal","بالدينار")+field("f-note","على شنوّة","","اختياري")
+     +'<div class="row" style="margin-top:14px"><button type="button" class="btn go grow" data-act="cpay" data-id="'+c.id+'">خلّصني</button><button type="button" class="btn grow" data-act="cadd" data-id="'+c.id+'">زاد خذا كريدي</button></div>'
+     +'<h2>الحركات</h2><div class="sheet">';
+    var hist=S.credit.filter(function(x){return x.cid===c.id}).reverse();
+    if(!hist.length)h+='<div class="empty">ما ثمة حتى حركة.</div>';
+    hist.forEach(function(x){h+='<div class="line"><div class="t"><b>'+(x.amt<0?'خلّص':'خذا')+'</b><span>'+esc(x.note||"")+' <bdi class="n">'+x.d+'</bdi></span></div><div class="v '+(x.amt<0?'green':'red')+'">'+dt(Math.abs(x.amt))+'</div></div>'});
+    h+='</div><div class="row" style="margin-top:14px"><button type="button" class="btn warn grow" data-act="cdel" data-id="'+c.id+'">امسح الحريف</button><button type="button" class="btn" data-act="close">سكّر</button></div>';
+  }else if(s.kind==="enew"){h='<h2>'+(s.k==="personal"?'مصروف شخصي':'مصروف المحل')+'</h2>'+field("f-label","على شنوّة","",s.k==="personal"?"مثلاً: قهوة":"مثلاً: كراء")+field("f-amt","المبلغ","","0.000","decimal","بالدينار")
+     +'<label for="f-date">النهار</label><input type="date" id="f-date" value="'+today()+'">'+foot("eok","سجّل");
+  }else if(s.kind==="hset"){var it=s.id?hitem(s.id):{name:"",sell:null,ucost:null,plan:30};
+    h='<h2>'+(s.id?esc(it.name):'حاجة نصنعها في الدار')+'</h2>'+field("f-name","الاسم",it.name,"مثلاً: فريكاسي")
+     +field("f-sell","سعر بيع الوحدة",din(it.sell),"1.200","decimal","بالدينار")
+     +field("f-plan","قدّاش تحضّر في العادة",it.plan,"30","numeric")
+     +field("f-batch","قدّاش تصرف على المكوّنات في النهار",it.ucost==null?"":din(it.ucost*(it.plan||1)),"مثلاً 18.000","decimal","خبز، تن، بطاطا، زيت…")
+     +'<div class="hint" id="hint"></div>'+foot("hsave","سجّل")+(s.id&&S.home.length>1?'<div class="row" style="margin-top:10px"><button type="button" class="btn warn wide" data-act="hdel" data-id="'+it.id+'">امسحها</button></div>':'');
+  }else if(s.kind==="backup"){h='<h2>نسخة احتياطية</h2><p class="soft">انسخ النص هذا واحفظو (ابعثو لروحك في رسالة).</p><label for="f-text">النسخة</label><input type="text" id="f-text" readonly value="'+esc(JSON.stringify(S))+'">'
+     +'<div class="row" style="margin-top:16px">'+(window.Android?'<button type="button" class="btn go grow" data-act="share">ابعثها</button>':'')+'<button type="button" class="btn grow" data-act="copy">انسخ</button><button type="button" class="btn" data-act="close">سكّر</button></div>';
+  }else if(s.kind==="restore"){h='<h2>رجّع نسخة</h2><p><span class="pill r">انتبه</span> النسخة تعوّض كل اللي في التطبيق توّا.</p>'+field("f-text","لصّق النسخة هنا","","")+foot("restoreok","رجّع النسخة");
+  }else if(s.kind==="ask"){h='<h2>'+esc(s.title)+'</h2><p>'+esc(s.text)+'</p><div class="row" style="margin-top:16px"><button type="button" class="btn warn grow" data-act="yes">'+esc(s.yes)+'</button><button type="button" class="btn grow" data-act="close">لا</button></div>'}
+  $("sheet").innerHTML=h;hint();
 }
-function ingHtml(s){
-  var h='<div class="f"><span>ماذا اشتريت لتصنعها؟ اكتب كل مكوّن وثمنه</span>';
-  s.ing.forEach(function(g,i){h+='<div class="ing"><input id="ing-n-'+i+'" type="text" autocomplete="off" aria-label="اسم المكوّن" placeholder="'+(i===0?"مثال: خبز":(i===1?"مثال: تن":"مكوّن"))+'" value="'+esc(g.n)+'"><input id="ing-a-'+i+'" type="text" inputmode="decimal" autocomplete="off" aria-label="ثمن المكوّن" placeholder="ثمنه" value="'+esc(g.a)+'"></div>';});
-  return h+'<button type="button" class="btn small" data-act="add-ing">+ مكوّن آخر</button><span class="echo" id="ing-total"></span></div>';
-}
-function readIng(){sheet.ing=sheet.ing.map(function(g,i){return {n:val("ing-n-"+i),a:val("ing-a-"+i)};});}
-function buyNow(){
-  if(!sheet.home)return parseMoney(val("f-buy"));
-  readIng();var sum=0,any=false;
-  sheet.ing.forEach(function(g){var a=parseMoney(g.a);if(isFinite(a)){sum+=a;any=true;}});
-  return any?sum:NaN;
-}
-function ingClean(){return sheet.ing.map(function(g){return {n:g.n.trim(),a:parseMoney(g.a)};}).filter(function(g){return isFinite(g.a);});}
-function ingStart(p){var l=(p&&p.ing?p.ing:[]).map(function(g){return {n:g.n,a:inField(g.a)};});while(l.length<3)l.push({n:"",a:""});return l;}
-function val(id){var e=document.getElementById(id);return e?e.value:"";}
-function setEcho(id,m){var e=document.getElementById(id+"-echo");if(e)e.textContent=words(m);}
-function calcHtml(name,buy,pcs,sell){
-  var r=calc(buy,pcs,sell);
-  if(!r)return {cls:"",html:'<span class="muted">اكتب الأرقام وسأحسب لك هنا.</span>'};
-  var v=verdictOf(r.per),head=v==="good"?"رابحة":(v==="bad"?"خاسرة":"لا ربح ولا خسارة");
-  var li='<li>القطعة تكلّفك '+dt(r.cost)+'</li>';
-  if(v==="good")li+='<li>تربح '+dt(r.per)+' في كل قطعة</li><li>إذا بعت الكل تقبض '+dt(r.income)+' وربحك '+dt(r.all)+'</li>';
-  else if(v==="bad")li+='<li>تخسر '+dt(-r.per)+' في كل قطعة</li><li>إذا بعت الكل تخسر '+dt(-r.all)+'</li><li>بع القطعة بأكثر من '+dt(Math.ceil(r.cost))+'</li>';
-  else li+='<li>تبيعها بنفس ثمنها، لا تربح شيئاً</li>';
-  return {cls:v==="warn"?"":v,html:'<div class="head">'+esc(name||"هذه السلعة")+': '+head+'</div><ul>'+li+'</ul>'};
-}
-function liveSheet(){
-  if(!sheet)return;
-  var box=document.getElementById("calc"),r;
-  if(sheet.type==="product"||sheet.type==="restock"){
-    var buy=buyNow(),pcs=parseCount(val("f-pcs"));
-    var sell=sheet.type==="product"?parseMoney(val("f-sell")):state.products[sheet.id].sell;
-    var name=sheet.type==="product"?val("f-name").trim():state.products[sheet.id].name;
-    setEcho("f-buy",buy);setEcho("f-sell",sell);
-    var tot=document.getElementById("ing-total");if(tot)tot.innerHTML=isFinite(buy)?"المكوّنات كلها كلّفتك "+dt(buy):"";
-    r=calcHtml(name,buy,pcs,sell);box.className="calc "+r.cls;box.innerHTML=r.html;
-  }else if(sheet.type==="checkout"){
-    var paid=parseMoney(val("f-paid")),sum=cartSum().sum;setEcho("f-paid",paid);
-    if(!isFinite(paid)){box.className="calc";box.innerHTML='<span class="muted">اكتب ما أعطاك وسأحسب لك الباقي الذي ترجّعه.</span>';}
-    else if(paid<sum){box.className="calc bad";box.innerHTML='<div class="head">ناقص '+dt(sum-paid)+'</div>لم يعطك ما يكفي.';}
-    else if(paid===sum){box.className="calc good";box.innerHTML='<div class="head">المبلغ مضبوط</div>لا ترجّع له شيئاً.';}
-    else{box.className="calc good";box.innerHTML='<div class="head">رجّع له '+dt(paid-sum)+'</div>';}
-  }else if(sheet.type==="expense"){setEcho("f-amount",parseMoney(val("f-amount")));}
-  else if(sheet.type==="pay"){
-    var pd=parseMoney(val("f-pay")),ow=state.debts[sheet.id].owed;setEcho("f-pay",pd);
-    if(!isFinite(pd)){box.className="calc";box.innerHTML='<span class="muted">اكتب المبلغ الذي دفعه.</span>';}
-    else if(pd>=ow){box.className="calc good";box.innerHTML='<div class="head">خلّص كل شيء</div>'+(pd>ow?'رجّع له '+dt(pd-ow)+'.':'لم يبق عليه شيء.');}
-    else{box.className="calc";box.innerHTML='<div class="head">يبقى عليه '+dt(ow-pd)+'</div>';}
-  }
-}
-function fail(msg){var e=document.getElementById("f-err");if(e)e.textContent=msg;}
-function toast(msg){var t=document.getElementById("toast");t.innerHTML="<div>"+msg+"</div>";clearTimeout(toast.t);toast.t=setTimeout(function(){t.innerHTML="";},3500);}
+function ask(title,text,yes,fn){open({kind:"ask",title:title,text:text,yes:yes,fn:fn})}
+function val(id){var e=$(id);return e?e.value:""}
+/* live answer under the price fields: what the piece costs and whether it wins */
+function hint(){var e=$("hint");if(!e||!sheet)return;var k=sheet.kind,t="";
+  if(k==="sell"){var pr=piece(val("f-price"));t=pr==null?"اكتب السعر":"المجموع: "+dt(pr*sheet.qty)}
+  else if(k==="pedit"||k==="cart"){var cp=carton(val("f-cprice")),per=int(val("f-per")),se=piece(val("f-sell"));
+    if(cp!=null&&per>0){var c=cp/per;t="القطعة تطلع عليك "+dt(c);if(se!=null){var g=Math.round(se-c);t+=g>0?"، تربح "+dt(g)+" في القطعة":g<0?"، تخسر "+dt(-g)+" في القطعة":"، ما تربح فيها شي"}
+      if(k==="cart"){var n=int(val("f-n"))||0;if(n>0)t+=". الكل: "+dt(cp*n)}}
+    else if(se!=null)t="تبيع القطعة بـ "+dt(se)}
+  else if(k==="hset"){var b=amount(val("f-batch")),pl=int(val("f-plan")),hs=piece(val("f-sell"));
+    if(b!=null&&pl>0){var u=b/pl;t="الوحدة تطلع عليك "+dt(u);if(hs!=null)t+="، تربح "+dt(hs-u)+" في الوحدة و"+dt((hs-u)*pl)+" في النهار"}}
+  e.innerHTML=t}
 
 /* ---------- actions ---------- */
-function saveProduct(){
-  var name=val("f-name").trim(),buy=buyNow(),pcs=parseCount(val("f-pcs")),sell=parseMoney(val("f-sell"));
-  if(!name)return fail("اكتب اسم السلعة.");
-  if(!isFinite(buy))return fail(sheet.home?"اكتب ثمن مكوّن واحد على الأقل.":"اكتب بكم اشتريتها.");
-  if(!isFinite(pcs)||pcs<=0)return fail("اكتب كم قطعة فيها.");
-  if(!isFinite(sell))return fail("اكتب بكم تبيع القطعة.");
-  var id=sheet.id||uid(),old=state.products[id],stock=old?parseCount(val("f-stock")):pcs;
-  if(!isFinite(stock))stock=old?(old.stock||0):pcs;
-  state.products[id]={name:name,buy:buy,pcs:pcs,cost:buy/pcs,sell:sell,stock:stock,t:old?old.t:Date.now()};
-  if(sheet.home)state.products[id].ing=ingClean();
-  persist("products/"+id);closeSheet();render();toast("تم حفظ "+esc(name));
+function act(a,b){var d=b.dataset,p,c,s=sheet,x;
+  if(a==="close"){closeSheet();return}
+  if(a==="sec"){ui.sec=d.s;rGoods();return}
+  if(a==="period"){ui.period=d.k;rReport();return}
+  if(a==="scan"){if(window.Android)Android.scan();return}
+  if(a==="sell"){p=prod(d.id);if(p.sell==null){toast("حط سعر البيع قبل");open({kind:"pedit",id:p.id});return}open({kind:"sell",id:p.id,qty:1,price:p.sell});return}
+  if(a==="q"){s.qty=Math.max(1,s.qty+ +d.n);$("qty").textContent=s.qty;hint();return}
+  if(a==="sellok"){p=prod(s.id);var pr=piece(val("f-price"));if(pr==null){toast("اكتب السعر");return}
+    var cid=val("f-cust");if(cid==="+"){var nm=val("f-cname").trim();if(!nm){toast("اكتب اسم الحريف");return}c={id:uid(),name:nm};S.customers.push(c);cid=c.id}
+    x={id:uid(),d:today(),pid:p.id,name:p.name,qty:s.qty,sell:pr,cost:cost(p),cid:cid||null};S.sales.push(x);p.stock-=s.qty;
+    if(cid)S.credit.push({id:uid(),d:x.d,cid:cid,amt:pr*s.qty,note:p.name+" × "+s.qty,sale:x.id});
+    save();closeSheet();render();toast("تسجّل: "+p.name+" × "+x.qty);return}
+  if(a==="unsell"){ask("نمسح البيعة؟","القطع ترجع للسلعة، وإذا كانت بالكريدي تتمسح من حساب الحريف.","امسح",function(){
+      for(var i=0;i<S.sales.length;i++)if(S.sales[i].id===d.id){x=S.sales[i];p=prod(x.pid);if(p)p.stock+=x.qty;S.sales.splice(i,1);break}
+      S.credit=S.credit.filter(function(k){return k.sale!==d.id})});return}
+  if(a==="pnew"){open({kind:"pedit",id:null,bc:d.bc||""});return}
+  if(a==="pview"){open({kind:"pview",id:d.id});return}
+  if(a==="pedit"){open({kind:"pedit",id:d.id});return}
+  if(a==="psave"){var name=val("f-name").trim();if(!name){toast("اكتب اسم السلعة");return}
+    p=s.id?prod(s.id):null;if(!p){p={id:uid(),stock:0};S.products.push(p)}
+    p.name=name;p.sec=val("f-sec");p.bc=val("f-bc").replace(/\s/g,"");p.cprice=carton(val("f-cprice"));x=int(val("f-per"));p.per=x>0?x:null;p.sell=piece(val("f-sell"));x=int(val("f-stock"));p.stock=x==null?0:x;p.note=val("f-note").trim();
+    save();closeSheet();render();toast("تسجّلت: "+name);return}
+  if(a==="pdel"){p=prod(d.id);ask("نمسح "+p.name+"؟","السلعة تتمسح من القائمة. البيع القديم يبقى في الحساب.","امسح",function(){S.products=S.products.filter(function(k){return k.id!==d.id})});return}
+  if(a==="cart"){open({kind:"cart",id:d.id});return}
+  if(a==="cartok"){p=prod(s.id);var n=int(val("f-n")),per=int(val("f-per")),cp=carton(val("f-cprice")),se=piece(val("f-sell"));
+    if(!(n>0)||!(per>0)){toast("اكتب عدد الكراتن وعدد القطع");return}if(cp==null){toast("اكتب سعر الكرتونة");return}
+    p.per=per;p.cprice=cp;if(se!=null)p.sell=se;p.stock+=n*per;S.cartons.push({id:uid(),d:today(),pid:p.id,n:n,per:per,price:cp});
+    save();closeSheet();render();toast("زدت "+(n*per)+" قطعة");return}
+  if(a==="cnew"){open({kind:"cnew"});return}
+  if(a==="cnewok"){x=val("f-cname").trim();if(!x){toast("اكتب الاسم");return}c={id:uid(),name:x};S.customers.push(c);var am=amount(val("f-amt"));if(am>0)S.credit.push({id:uid(),d:today(),cid:c.id,amt:am,note:"كريدي قديم"});save();closeSheet();render();return}
+  if(a==="cview"){open({kind:"cview",id:d.id});return}
+  if(a==="cpay"||a==="cadd"){x=amount(val("f-amt"));if(!(x>0)){toast("اكتب المبلغ");return}S.credit.push({id:uid(),d:today(),cid:d.id,amt:a==="cpay"?-x:x,note:val("f-note").trim()});save();render();open({kind:"cview",id:d.id});toast(a==="cpay"?"تسجّل الخلاص":"تسجّل الكريدي");return}
+  if(a==="cdel"){c=cust(d.id);ask("نمسح "+c.name+"؟","الحريف وحركاتو الكل يتمسحو.","امسح",function(){S.customers=S.customers.filter(function(k){return k.id!==d.id});S.credit=S.credit.filter(function(k){return k.cid!==d.id})});return}
+  if(a==="enew"){open({kind:"enew",k:d.k});return}
+  if(a==="eok"){x=amount(val("f-amt"));var lb=val("f-label").trim();if(!lb){toast("اكتب على شنوّة");return}if(!(x>0)){toast("اكتب المبلغ");return}S.expenses.push({id:uid(),d:val("f-date")||today(),kind:s.k,label:lb,amt:x});save();closeSheet();render();return}
+  if(a==="edel"){ask("نمسح المصروف؟","يتمسح من الحساب.","امسح",function(){S.expenses=S.expenses.filter(function(k){return k.id!==d.id})});return}
+  if(a==="hm"){x=hday(d.id,today(),true);x[d.k]=Math.max(0,x[d.k]+ +d.n);if(x.sold>x.made)x.made=x.sold;save();rToday();return}
+  if(a==="hfill"){x=hday(d.id,today(),true);x.made=Math.max(x.sold,hitem(d.id).plan||0);save();rToday();return}
+  if(a==="hall"){x=hday(d.id,today(),true);x.sold=x.made;save();rToday();return}
+  if(a==="hset"){open({kind:"hset",id:d.id});return}
+  if(a==="hnew"){open({kind:"hset",id:null});return}
+  if(a==="hsave"){var hn=val("f-name").trim(),hs=piece(val("f-sell")),pl=int(val("f-plan")),bt=amount(val("f-batch"));if(!hn){toast("اكتب الاسم");return}if(hs==null){toast("اكتب سعر البيع");return}
+    var it=s.id?hitem(s.id):null;if(!it){it={id:uid()};S.home.push(it)}it.name=hn;it.sell=hs;it.plan=pl>0?pl:30;it.ucost=(bt!=null&&it.plan>0)?bt/it.plan:null;
+    x=hday(it.id,today());if(x){x.sell=it.sell;x.ucost=it.ucost}save();closeSheet();render();return}
+  if(a==="hdel"){ask("نمسحها؟","تتمسح مع أيامها الكل.","امسح",function(){S.home=S.home.filter(function(k){return k.id!==d.id});S.homeDays=S.homeDays.filter(function(k){return k.hid!==d.id})});return}
+  if(a==="backup"){open({kind:"backup"});return}
+  if(a==="share"){Android.share(JSON.stringify(S));return}
+  if(a==="copy"){var e=$("f-text");e.select();try{document.execCommand("copy");toast("تنسخت")}catch(err){toast("انسخها بيدك")}return}
+  if(a==="restore"){open({kind:"restore"});return}
+  if(a==="restoreok"){try{x=JSON.parse(val("f-text"));if(!x||!x.products||!x.sales)throw 0;S=x;save();closeSheet();render();toast("رجعت النسخة")}catch(err){toast("النص هذا موش نسخة صحيحة")}return}
+  if(a==="yes"){var fn=s.fn;closeSheet();fn();save();render();return}
 }
-function saveRestock(){
-  var p=state.products[sheet.id],buy=buyNow(),pcs=parseCount(val("f-pcs"));
-  if(!isFinite(buy))return fail(sheet.home?"اكتب ثمن مكوّن واحد على الأقل.":"اكتب بكم اشتريتها.");
-  if(sheet.home)p.ing=ingClean();
-  if(!isFinite(pcs)||pcs<=0)return fail("اكتب كم قطعة فيها.");
-  p.buy=buy;p.pcs=pcs;p.cost=buy/pcs;p.stock=(p.stock||0)+pcs;
-  persist("products/"+sheet.id);closeSheet();render();toast("أضفت "+pcs+" قطعة");
-}
-function ateIt(){
-  var d=today(),now=Date.now(),sum=0,any=false;
-  for(var id in cart){
-    var p=state.products[id],q=cart[id];if(!p||!q)continue;any=true;
-    d.expenses.push({i:uid(),k:"p",n:"أكلت أو أخذت: "+q+" × "+p.name,a:Math.round(q*p.cost),t:now});
-    sum+=q*p.cost;p.stock=Math.max(0,(p.stock||0)-q);persist("products/"+id);
-  }
-  if(!any)return closeSheet();
-  persist("days/"+dayKey());cart={};closeSheet();render();
-  toast("سجّلتها في مصاريفك الشخصية: "+dt(sum));
-}
-function savePay(){
-  var d=state.debts[sheet.id],a=parseMoney(val("f-pay"));
-  if(!isFinite(a)||a<=0)return fail("اكتب المبلغ الذي دفعه.");
-  d.owed-=a;var left=d.owed,name=d.name;if(d.owed<=0)delete state.debts[sheet.id];
-  persist("debts/"+sheet.id);closeSheet();render();
-  toast(left>0?esc(name)+" يبقى عليه "+dt(left):esc(name)+" خلّص كل شيء");
-}
-function confirmSale(credit){
-  var d=today(),now=Date.now(),profit=0,any=false,did=null,cust="";
-  if(credit){
-    cust=val("f-cust").trim();if(!cust)return fail("اكتب اسم الحريف حتى أتذكّر من عليه الكريدي.");
-    for(var k in state.debts)if(String(state.debts[k].name).trim()===cust)did=k;
-    if(!did)did=uid();
-  }
-  for(var id in cart){
-    var p=state.products[id],q=cart[id];if(!p||!q)continue;any=true;
-    var e={i:uid(),p:id,n:p.name,q:q,s:p.sell,c:p.cost,t:now};if(credit){e.d=did;e.dn=cust;}d.sales.push(e);
-    profit+=q*(p.sell-p.cost);
-    p.stock=Math.max(0,(p.stock||0)-q);persist("products/"+id);
-  }
-  if(!any)return closeSheet();
-  if(credit){var sum=cartSum().sum,old=state.debts[did];state.debts[did]={name:cust,owed:(old?old.owed:0)+sum,t:now};persist("debts/"+did);}
-  persist("days/"+dayKey());cart={};closeSheet();render();
-  if(credit)return toast("سجّلت الكريدي على "+esc(cust)+". صار عليه "+dt(state.debts[did].owed));
-  toast(profit>=0?"تم التسجيل. ربحك في هذا البيع "+dt(profit):"تم التسجيل. خسرت في هذا البيع "+dt(-profit));
-}
-function saveExpense(){
-  var a=parseMoney(val("f-amount"));if(!isFinite(a)||a<=0)return fail("اكتب المبلغ.");
-  var x={i:uid(),n:val("f-note").trim(),a:a,t:Date.now()};if(sheet.kind==="p")x.k="p";today().expenses.push(x);
-  persist("days/"+dayKey());closeSheet();render();toast("تم تسجيل المصروف");
-}
-function deleteLog(kind,day,id){
-  var d=state.days[day];if(!d)return;
-  if(kind==="sale"){
-    var s=(d.sales||[]).filter(function(x){return x.i===id;})[0];
-    d.sales=(d.sales||[]).filter(function(x){return x.i!==id;});
-    if(s&&state.products[s.p]){state.products[s.p].stock=(state.products[s.p].stock||0)+s.q;persist("products/"+s.p);}
-    if(s&&s.d&&state.debts[s.d]){state.debts[s.d].owed-=s.q*s.s;if(state.debts[s.d].owed<=0)delete state.debts[s.d];persist("debts/"+s.d);}
-  }else d.expenses=(d.expenses||[]).filter(function(x){return x.i!==id;});
-  persist("days/"+day);
-}
-document.addEventListener("click",function(ev){
-  var o=document.getElementById("overlay");
-  if(ev.target===o){closeSheet();return;}
-  var b=ev.target.closest("[data-act],[data-tab]");if(!b)return;
-  if(b.dataset.tab){tab=b.dataset.tab;render();window.scrollTo(0,0);return;}
-  var a=b.dataset.act,id=b.dataset.id;
-  if(a==="add"){cart[id]=(cart[id]||0)+1;renderSell();}
-  else if(a==="sub"){cart[id]=(cart[id]||0)-1;if(cart[id]<=0)delete cart[id];renderSell();}
-  else if(a==="checkout")openSheet({type:"checkout"});
-  else if(a==="confirm-sale")confirmSale(false);
-  else if(a==="credit-sale")confirmSale(true);
-  else if(a==="ate")ateIt();
-  else if(a==="pay")openSheet({type:"pay",id:id,focus:false});
-  else if(a==="save-pay")savePay();
-  else if(a==="new-product")openSheet({type:"product"});
-  else if(a==="new-home")openSheet({type:"product",home:true,ing:ingStart(null)});
-  else if(a==="edit")openSheet({type:"product",id:id,focus:false,home:!!state.products[id].ing,ing:ingStart(state.products[id])});
-  else if(a==="restock")openSheet({type:"restock",id:id,focus:false,home:!!state.products[id].ing,ing:ingStart(state.products[id])});
-  else if(a==="add-ing"){readIng();sheet.vals={name:val("f-name"),pcs:val("f-pcs"),sell:val("f-sell"),stock:val("f-stock")};if(!document.getElementById("f-stock"))delete sheet.vals.stock;sheet.ing.push({n:"",a:""});drawSheet();var ni=document.getElementById("ing-n-"+(sheet.ing.length-1));if(ni)ni.focus();}
-  else if(a==="save-product")saveProduct();
-  else if(a==="save-restock")saveRestock();
-  else if(a==="new-expense")openSheet({type:"expense",kind:id});
-  else if(a==="save-expense")saveExpense();
-  else if(a==="period"){period=id;renderReport();}
-  else if(a==="close")closeSheet();
-  else if(a==="ask-del-product"){var pid=sheet.id;openSheet({type:"confirm",title:"حذف السلعة",text:"هل تحذف «"+state.products[pid].name+"»؟ البيع المسجّل سابقاً يبقى في الحساب.",focus:false,yes:function(){delete state.products[pid];delete cart[pid];persist("products/"+pid);}});}
-  else if(a==="del-log"){var k=b.dataset.kind,day=b.dataset.day;openSheet({type:"confirm",title:"حذف من السجل",text:k==="sale"?"هل تحذف هذا البيع؟ القطع ترجع إلى الباقي عندك، وإن كان كريدي يُنقص من حساب الحريف.":"هل تحذف هذا المصروف؟",focus:false,yes:function(){deleteLog(k,day,id);}});}
-  else if(a==="yes"){var fn=sheet&&sheet.yes;closeSheet();if(fn)fn();render();}
-});
-document.addEventListener("input",function(ev){if(ev.target.closest("#sheet"))liveSheet();});
-
-loadLocal();render();connect();
+document.addEventListener("click",function(ev){var b=ev.target.closest("[data-act],[data-tab]");
+  if(!b){if(ev.target.id==="shade")closeSheet();return}
+  if(b.dataset.tab){go(b.dataset.tab);return}act(b.dataset.act,b)});
+document.addEventListener("input",function(ev){var t=ev.target;if(t.id==="q"){ui.q=t.value;rFound();return}hint()});
+document.addEventListener("change",function(ev){if(ev.target.id==="f-cust"){$("newc").hidden=ev.target.value!=="+"}});
+/* called by the Android shell */
+function appBack(){if(sheet){closeSheet();return "closed"}if(tab!=="today"){go("today");return "closed"}return "none"}
+function onScan(code){code=String(code||"").trim();if(!code)return;
+  if(sheet&&sheet.kind==="pedit"){$("f-bc").value=code;return}
+  for(var i=0;i<S.products.length;i++)if(S.products[i].bc===code){act("sell",{dataset:{id:S.products[i].id}});return}
+  ask("سلعة موش مسجّلة","الباركود "+code+" ما لقيتوش. تحب تزيدها؟","زيدها",function(){setTimeout(function(){open({kind:"pedit",id:null,bc:code})},0)})}
+load();render();
 </script>
 </body>
 </html>
